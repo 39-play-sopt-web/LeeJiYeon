@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>지연 블로그</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. 헤더 -->
+  <header class="header">
+    <div class="header-left">
+      <img class="avatar" src="images/profile.jpg" alt="프로필 사진">
+    </div>
+
+    <div class="header-center">
+      <h1 class="site-title">지연 블로그</h1>
+    </div>
+
+    <div class="header-right">
+      <a href="https://github.com/jiyeoniii" target="_blank">
+        <img class="social-icon" src="images/github.png" alt="GitHub">
+      </a>
+
+      <a href="https://velog.io/@dlwldus0705/posts" target="_blank">
+        <img class="social-icon" src="images/velog.png" alt="velog">
+      </a>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- 2. 네비게이션 -->
+    <nav class="side-nav">
+      <ul>
+        <li><a href="#photo-dump">포토 덤프</a></li>
+        <li><a href="#gallery">사진첩</a></li>
+        <li><a href="#interests">관심사</a></li>
+        <li><a href="#to-webtory">to. 웹토리</a></li>
+      </ul>
+    </nav>
+
+    <main class="content">
+
+      <!-- 3. 포토 덤프 섹션 -->
+      <section id="photo-dump" class="section">
+        <h2>포토 덤프</h2>
+        <div class="photo-grid">
+          <div class="photo p1"><img src="images/dump1.jpg" alt="덤프 1"></div>
+          <div class="photo p2"><img src="images/dump2.jpg" alt="덤프 2"></div>
+          <div class="photo p3"><img src="images/dump3.jpg" alt="덤프 3"></div>
+          <div class="photo p4"><img src="images/dump4.jpg" alt="덤프 4"></div>
+          <div class="photo p5"><img src="images/dump5.jpg" alt="덤프 5"></div>
+          <div class="photo p6"><img src="images/dump6.jpg" alt="덤프 6"></div>
+        </div>
+      </section>
+
+      <!-- 4. 사진첩 -->
+      <section id="gallery" class="section">
+        <h2>좋아하는 것: 와글와글 친구들</h2>
+        <div class="gallery-scroll">
+          <img src="images/photo1.jpg" alt="사진 1">
+          <img src="images/photo2.jpg" alt="사진 2">
+          <img src="images/photo3.jpg" alt="사진 3">
+          <img src="images/photo4.jpg" alt="사진 4">
+          <img src="images/photo5.jpg" alt="사진 5">
+          <img src="images/photo6.jpg" alt="사진 6">
+          <img src="images/photo7.jpg" alt="사진 7">
+          <img src="images/photo8.jpg" alt="사진 8">
+        </div>
+      </section>
+
+      <!-- 5. 관심사 섹션 -->
+      <section id="interests" class="section">
+        <h2>내 관심사</h2>
+        <div class="card-grid">
+
+          <div class="card">
+            <img class="card-img" src="images/like1.jpg" alt="관심사 1">
+            <p class="card-title">관심사 1</p>
+            <div class="card-buttons">
+              <button class="btn-like">좋아요</button>
+              <button class="btn-dislike">싫어요</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <img class="card-img" src="images/like2.jpg" alt="관심사 2">
+            <p class="card-title">관심사 2</p>
+            <div class="card-buttons">
+              <button class="btn-like">좋아요</button>
+              <button class="btn-dislike">싫어요</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <img class="card-img" src="images/like3.jpg" alt="관심사 3">
+            <p class="card-title">관심사 3</p>
+            <div class="card-buttons">
+              <button class="btn-like">좋아요</button>
+              <button class="btn-dislike">싫어요</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <img class="card-img" src="images/like4.jpg" alt="관심사 4">
+            <p class="card-title">관심사 4</p>
+            <div class="card-buttons">
+              <button class="btn-like">좋아요</button>
+              <button class="btn-dislike">싫어요</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <img class="card-img" src="images/like5.jpg" alt="관심사 5">
+            <p class="card-title">관심사 5</p>
+            <div class="card-buttons">
+              <button class="btn-like">좋아요</button>
+              <button class="btn-dislike">싫어요</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <img class="card-img" src="images/like6.jpg" alt="관심사 6">
+            <p class="card-title">관심사 6</p>
+            <div class="card-buttons">
+              <button class="btn-like">좋아요</button>
+              <button class="btn-dislike">싫어요</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <img class="card-img" src="images/like7.jpg" alt="관심사 7">
+            <p class="card-title">관심사 7</p>
+            <div class="card-buttons">
+              <button class="btn-like">좋아요</button>
+              <button class="btn-dislike">싫어요</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 6. to. 웹토리 섹션 -->
+      <section id="to-webtory" class="section">
+        <h2>To. 웹토리</h2>
+        <div class="letter">
+          <p class="letter-line">방가방가 웹토리~</p>
+          <p class="letter-line">잘부탁드려요~</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- 7. 푸터 -->
+  <footer class="footer">
+    <p>자기소개 끝~</p>
+  </footer>
+
+</body>
+</html>
