@@ -10,8 +10,8 @@
   --nav-width: 200px;
   --gap: 24px;
 
-  --color-bg-start: #d6f5e3;
-  --color-bg-end: #eef6ea;
+  --color-bg-start: #f5d6e5;
+  --color-bg-end: #f6eaef;
   --color-text: #222;
 }
 
@@ -376,8 +376,8 @@ body {
 /* 푸터 */
 
 .footer {
-  background: #000;
-  color: #fff;
+  background: #cbf9f9;
+  color: #000;
   text-align: center;
   font-size: 12px;
   padding: 12px 0;
