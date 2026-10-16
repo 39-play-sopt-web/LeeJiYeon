@@ -4,6 +4,7 @@ import Modal from '../Modal/Modal';
 import { LEVELS } from '../../constants/level';
 import { createGame } from '../../utils/game';
 import { saveRecord } from '../../utils/ranking';
+import { getNow, getElapsedSeconds } from '../../utils/time';
 
 const Game = ({ level, onTimeChange }) => {
   const { size, maxNumber } = LEVELS.find((item) => item.value === level);
@@ -20,9 +21,9 @@ const Game = ({ level, onTimeChange }) => {
   }, []);
 
   const startTimer = () => {
-    startTimeRef.current = Date.now();
+    startTimeRef.current = getNow();
     timerRef.current = setInterval(() => {
-      onTimeChange((Date.now() - startTimeRef.current) / 1000);
+      onTimeChange(getElapsedSeconds(startTimeRef.current));
     }, 10);
   };
 
@@ -30,7 +31,7 @@ const Game = ({ level, onTimeChange }) => {
     clearInterval(timerRef.current);
 
     const playTime = Number(
-      ((Date.now() - startTimeRef.current) / 1000).toFixed(2)
+      getElapsedSeconds(startTimeRef.current).toFixed(2)
     );
     onTimeChange(playTime);
 
