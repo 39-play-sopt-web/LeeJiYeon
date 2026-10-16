@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Header from './components/Header/Header';
 import Game from './components/Game/Game';
+import Ranking from './components/Ranking/Ranking';
 import * as S from './App.styles';
 
 const App = () => {
@@ -31,7 +32,7 @@ const App = () => {
         {menu === 'game' ? (
           <Game key={level} level={level} onTimeChange={setTime} />
         ) : (
-          <p>랭킹 자리</p>
+          <Ranking />
         )}
       </S.Main>
     </>

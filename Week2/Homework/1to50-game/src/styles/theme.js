@@ -7,6 +7,7 @@ export const theme = {
     gray900: '#111827',
     primary: '#e4e0ff',
     primaryDark: '#5b4fd6',
+    red: '#dc2626',
   },
   background: '#f4f2ff',
   headerHeight: '64px',
