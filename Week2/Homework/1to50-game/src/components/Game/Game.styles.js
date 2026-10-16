@@ -1,4 +1,12 @@
 import styled from '@emotion/styled';
+import { css, keyframes } from '@emotion/react';
+
+const flash = (color) => keyframes`
+  from {
+    background-color: ${color};
+    transform: scale(0.9);
+  }
+`;
 
 export const Wrapper = styled.section`
   display: flex;
@@ -33,15 +41,31 @@ export const Cell = styled.button`
   font-weight: 700;
   color: ${({ theme }) => theme.colors.gray900};
   background-color: ${({ theme }) => theme.colors.white};
-  transition: background-color 0.15s;
+  transition: background-color 0.15s, transform 0.1s;
 
   &:hover:not(:disabled) {
     background-color: ${({ theme }) => theme.colors.primary};
   }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+
+  ${({ isFlashing, theme }) =>
+    isFlashing &&
+    css`
+      animation: ${flash(theme.colors.primaryDark)} 0.3s ease-out;
+    `}
 
   &:disabled {
     border-style: dashed;
     background-color: transparent;
     cursor: default;
   }
+`;
+
+export const ResultTime = styled.p`
+  font-size: 28px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.gray900};
 `;

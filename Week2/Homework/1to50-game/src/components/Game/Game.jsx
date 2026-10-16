@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as S from './Game.styles';
+import Modal from '../Modal/Modal';
 import { LEVELS } from '../../constants/level';
 import { createGame } from '../../utils/game';
 import { saveRecord } from '../../utils/ranking';
@@ -8,6 +9,9 @@ const Game = ({ level, onTimeChange }) => {
   const { size, maxNumber } = LEVELS.find((item) => item.value === level);
 
   const [game, setGame] = useState(() => createGame(size));
+  const [clickedIndex, setClickedIndex] = useState(null);
+  const [result, setResult] = useState(null);
+
   const startTimeRef = useRef(0);
   const timerRef = useRef(null);
 
@@ -36,15 +40,21 @@ const Game = ({ level, onTimeChange }) => {
       playedAt: new Date().toISOString(),
     });
 
-    alert(`🎉 Level ${level} 클리어!\n걸린 시간: ${playTime.toFixed(2)}초`);
+    setResult(playTime);
+  };
 
+  const handleConfirm = () => {
+    setResult(null);
     setGame(createGame(size));
+    setClickedIndex(null);
     onTimeChange(0);
   };
 
   const handleClick = (index) => {
     const number = game.board[index];
     if (number !== game.next) return;
+
+    setClickedIndex(index);
 
     if (number === 1) startTimer();
 
@@ -63,13 +73,15 @@ const Game = ({ level, onTimeChange }) => {
   return (
     <S.Wrapper>
       <S.NextNumber>
-        다음 숫자 <strong>{game.next}</strong>({game.next} / {maxNumber})
+        다음 숫자 <strong>{result === null ? game.next : '완료!'}</strong>(
+        {game.next} / {maxNumber})
       </S.NextNumber>
 
       <S.Board boardSize={size}>
         {game.board.map((number, index) => (
           <S.Cell
-            key={index}
+            key={`${index}-${number}`}
+            isFlashing={index === clickedIndex}
             disabled={number === null}
             onClick={() => handleClick(index)}
           >
@@ -77,6 +89,12 @@ const Game = ({ level, onTimeChange }) => {
           </S.Cell>
         ))}
       </S.Board>
+
+      {result !== null && (
+        <Modal title={`🎉 Level ${level} 클리어!`} onConfirm={handleConfirm}>
+          <S.ResultTime>{result.toFixed(2)}초</S.ResultTime>
+        </Modal>
+      )}
     </S.Wrapper>
   );
 };
