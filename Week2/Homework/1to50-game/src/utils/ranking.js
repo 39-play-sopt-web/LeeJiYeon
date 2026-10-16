@@ -16,3 +16,9 @@ export const saveRecord = (record) => {
 export const clearRecords = () => {
   localStorage.removeItem(STORAGE_KEY);
 };
+
+export const sortRecords = (records) =>
+  [...records].sort((a, b) => {
+    if (a.level !== b.level) return b.level - a.level;
+    return a.playTime - b.playTime;
+  });
