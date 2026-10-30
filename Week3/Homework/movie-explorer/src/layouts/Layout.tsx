@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 import Header from '../components/Header';
 
 const Layout = () => {
@@ -9,6 +9,7 @@ const Layout = () => {
       <Main>
         <Outlet />
       </Main>
+      <ScrollRestoration />
     </>
   );
 };
