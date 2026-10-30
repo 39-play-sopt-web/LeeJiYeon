@@ -1,11 +1,20 @@
 import { useMemo } from 'react';
 import styled from '@emotion/styled';
+import { useSearchParams } from 'react-router-dom';
 import MovieList from '../components/movie/MovieList';
+import RatingFilter from '../components/movie/RatingFilter';
+import { DEFAULT_RATING_FILTER, RATING_FILTERS } from '../constants/filter';
 import { useMovies } from '../hooks/useMovies';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import type { Movie } from '../types/movie';
 
 const MainPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const ratingParam = searchParams.get('rating');
+  const selectedFilter =
+    RATING_FILTERS.find((filter) => filter.id === ratingParam) ??
+    DEFAULT_RATING_FILTER;
+
   const {
     data,
     isPending,
@@ -14,7 +23,7 @@ const MainPage = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useMovies();
+  } = useMovies(selectedFilter);
 
   const movies = useMemo(() => {
     const movieMap = new Map<number, Movie>();
@@ -31,14 +40,30 @@ const MainPage = () => {
     hasNextPage && !isFetchingNextPage && !isFetchNextPageError,
   );
 
+  const handleSelectFilter = (id: string) => {
+    if (id === DEFAULT_RATING_FILTER.id) {
+      setSearchParams({});
+    } else {
+      setSearchParams({ rating: id });
+    }
+    window.scrollTo({ top: 0 });
+  };
+
+  const isEmpty = !isPending && !isError && movies.length === 0;
+
   return (
     <section>
       <PageTitle>영화 둘러보기</PageTitle>
+      <RatingFilter
+        selectedId={selectedFilter.id}
+        onSelect={handleSelectFilter}
+      />
 
       {isPending && <Message>영화를 불러오는 중이에요...</Message>}
       {isError && !isFetchNextPageError && (
         <Message>영화를 불러오지 못했어요. 잠시 후 다시 시도해주세요.</Message>
       )}
+      {isEmpty && <Message>해당 별점의 영화가 없어요.</Message>}
       {movies.length > 0 && <MovieList movies={movies} />}
 
       <LoadMoreTrigger ref={loadMoreRef} />
@@ -59,7 +84,7 @@ const MainPage = () => {
 export default MainPage;
 
 const PageTitle = styled.h2`
-  margin-bottom: 2rem;
+  margin-bottom: 1.6rem;
   font-size: ${({ theme }) => theme.fontSize.xl};
   font-weight: 700;
 `;
