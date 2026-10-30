@@ -4,3 +4,5 @@ export const IMAGE_SIZE = {
   poster: 'w500',
   backdrop: 'w1280',
 } as const;
+
+export const MAX_PAGE = 500;
