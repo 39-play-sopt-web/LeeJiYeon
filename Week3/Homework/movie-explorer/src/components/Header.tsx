@@ -6,7 +6,7 @@ const Header = () => {
     <Wrapper>
       <Inner>
         <Logo to="/">
-          Jiyeon's <Point>Fav Movies</Point>
+          PLAY SOPT <Point>MOVIE</Point>
         </Logo>
       </Inner>
     </Wrapper>
