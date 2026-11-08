@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
+import ProtectedRoute from './components/ProtectedRoute';
 import AuthPage from './pages/AuthPage';
 import PostListPage from './pages/PostListPage';
 import PostWritePage from './pages/PostWritePage';
@@ -13,8 +14,11 @@ const App = () => {
 
       <Route element={<Layout />}>
         <Route path="/posts" element={<PostListPage />} />
-        <Route path="/posts/new" element={<PostWritePage />} />
         <Route path="/posts/:postId" element={<PostDetailPage />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/posts/new" element={<PostWritePage />} />
+        </Route>
       </Route>
 
       <Route path="*" element={<Navigate to="/posts" replace />} />
