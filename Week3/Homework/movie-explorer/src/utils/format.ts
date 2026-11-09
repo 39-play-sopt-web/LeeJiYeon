@@ -15,7 +15,7 @@ export const formatDate = (date: string): string => {
 };
 
 export const formatRating = (rating: number): string => {
-  return rating.toFixed(1);
+  return (Math.floor(rating * 10) / 10).toFixed(1);
 };
 
 export const formatVoteCount = (count: number): string => {

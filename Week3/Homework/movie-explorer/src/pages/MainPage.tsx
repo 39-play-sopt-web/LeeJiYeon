@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import styled from '@emotion/styled';
 import { useSearchParams } from 'react-router-dom';
 import MovieList from '../components/movie/MovieList';
@@ -6,7 +5,6 @@ import RatingFilter from '../components/movie/RatingFilter';
 import { DEFAULT_RATING_FILTER, RATING_FILTERS } from '../constants/filter';
 import { useMovies } from '../hooks/useMovies';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
-import type { Movie } from '../types/movie';
 
 const MainPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,35 +14,27 @@ const MainPage = () => {
     DEFAULT_RATING_FILTER;
 
   const {
-    data,
+    data: movies = [],
     isPending,
     isError,
+    isFetching,
     isFetchNextPageError,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    refetch,
   } = useMovies(selectedFilter);
-
-  const movies = useMemo(() => {
-    const movieMap = new Map<number, Movie>();
-    data?.pages.forEach((page) => {
-      page.results.forEach((movie) => {
-        if (!movieMap.has(movie.id)) movieMap.set(movie.id, movie);
-      });
-    });
-    return [...movieMap.values()];
-  }, [data]);
 
   const loadMoreRef = useIntersectionObserver<HTMLDivElement>(
     () => fetchNextPage(),
-    hasNextPage && !isFetchingNextPage && !isFetchNextPageError,
+    hasNextPage && !isFetching && !isFetchNextPageError,
   );
 
   const handleSelectFilter = (id: string) => {
     if (id === DEFAULT_RATING_FILTER.id) {
-      setSearchParams({});
+      setSearchParams({}, { replace: true });
     } else {
-      setSearchParams({ rating: id });
+      setSearchParams({ rating: id }, { replace: true });
     }
     window.scrollTo({ top: 0 });
   };
@@ -61,7 +51,10 @@ const MainPage = () => {
 
       {isPending && <Message>영화를 불러오는 중이에요...</Message>}
       {isError && !isFetchNextPageError && (
-        <Message>영화를 불러오지 못했어요. 잠시 후 다시 시도해주세요.</Message>
+        <>
+          <Message>영화를 불러오지 못했어요.</Message>
+          <RetryButton onClick={() => refetch()}>다시 시도하기</RetryButton>
+        </>
       )}
       {isEmpty && <Message>해당 별점의 영화가 없어요.</Message>}
       {movies.length > 0 && <MovieList movies={movies} />}

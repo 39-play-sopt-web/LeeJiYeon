@@ -1,15 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useEffectEvent, useRef } from 'react';
 
 export const useIntersectionObserver = <T extends HTMLElement>(
   onIntersect: () => void,
   enabled: boolean,
 ) => {
   const targetRef = useRef<T>(null);
-  const callbackRef = useRef(onIntersect);
-
-  useEffect(() => {
-    callbackRef.current = onIntersect;
-  }, [onIntersect]);
+  const handleIntersect = useEffectEvent(onIntersect);
 
   useEffect(() => {
     const target = targetRef.current;
@@ -18,7 +14,7 @@ export const useIntersectionObserver = <T extends HTMLElement>(
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          callbackRef.current();
+          handleIntersect();
         }
       },
       { rootMargin: '200px' },
